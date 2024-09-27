@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class pembeli extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'no_hp', 'alamat'];
 }
+

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\barangcontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dasbord',[
+        "title"=>"Dashboard"
+    ]);
 });
+Route::resource('barang', barangcontroller::class);
+Route::POST('caribarang',[barangcontroller::class,'cari'])->name('caribarang');
