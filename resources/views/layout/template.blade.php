@@ -117,10 +117,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('penjual.index')}}" class="nav-link {{ ($title==='book')?'active':''}}">
+                            <a href="{{route('penjual.index')}}" class="nav-link {{ ($title==='penjual')?'active':''}}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
                                     para umkm
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('pembeli.index')}}" class="nav-link {{ ($title==='pembeli')?'active':''}}">
+                                <i class="nav-icon fas fa-book"></i>
+                                <p>
+                                    pembeli
                                 </p>
                             </a>
                         </li>
