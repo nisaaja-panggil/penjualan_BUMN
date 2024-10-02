@@ -27,11 +27,11 @@ class barangcontroller extends Controller
     public function store(Request $request){
       $validasi=$request->validate([
             "name"=>"required",
-            "id_penjual"=>"required",
+            "id_penjual"=>"nullable",
             "jenis_barang"=>"required",
             "stok"=>"required",
             "harga"=>"required",
-            "foto"=>"image|file|max:1024"
+            "foto"=>"image|file|max:2048"
         ]);
         if ($request->file('foto')){
             $validasi['foto']=$request->file('foto')->store('img');

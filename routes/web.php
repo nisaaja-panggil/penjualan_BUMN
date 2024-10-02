@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\barangcontroller;
+use App\Http\Controllers\penjualcontroller;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,4 @@ Route::get('/', function () {
 });
 Route::resource('barang', barangcontroller::class);
 Route::POST('caribarang',[barangcontroller::class,'cari'])->name('caribarang');
+Route::resource('penjual', penjualcontroller::class);

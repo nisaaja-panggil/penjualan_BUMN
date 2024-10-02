@@ -117,10 +117,10 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link {{ ($title==='book')?'active':''}}">
+                            <a href="{{route('penjual.index')}}" class="nav-link {{ ($title==='book')?'active':''}}">
                                 <i class="nav-icon fas fa-book"></i>
                                 <p>
-                                    koleksi buku
+                                    para umkm
                                 </p>
                             </a>
                         </li>
