@@ -7,7 +7,7 @@
                 <a href="{{ route('barang.create') }}" class="btn btn-md btn-success">Tambah Data produk</a>
             </div>
             <div class="col-lg-9">
-                <form action="{{ route('caribarang') }}" method="POST">
+                <form action="{{ route('caribarang') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="Cari..." name="cari"
@@ -24,8 +24,12 @@
                 <div class="card mb-3" style="max-width: 500px;" >
                     <div class="row g-0" >
                         <div class="col-md-4 d-flex align-items-center">
-                        <img src="{{ asset('storage/' . $barang->cover) }}" class="img-fluid rounded-start ml-3" style="height: 250px; object-fit: foto;">
-                        </div>
+                            @if($barang->foto)
+                        <img src="{{ asset('storage/' . $barang->foto) }}" class="img-fluid rounded-start ml-3" style="height: 250px; object-fit: foto;">
+                        @else
+                        <img src="{{ asset('img/logo.png') }}" class="img-fluid rounded-start ml-3" style="height: 250px; object-fit: foto;">      
+                        @endif
+                    </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 
@@ -37,7 +41,7 @@
                                 
                                 <a href="{{ route('barang.edit', $barang->id) }}" class="btn btn-sm btn-primary">Edit</a>
                                 <a href="{{ route('barang.show',$barang->id) }}" class="btn btn-sm btn-success">Show</a>
-                                <a href="{{ route('pembelian.create',$barang->id) }}" class="btn btn-sm btn-success">Beli</a>
+                                <a href="{{ route('barang.create',$barang->id) }}" class="btn btn-sm btn-success">Beli</a>
                                 <form action="{{ route('barang.destroy', $barang->id) }}" method="post" class="d-inline">
                                     @csrf
                                     @method('DELETE')

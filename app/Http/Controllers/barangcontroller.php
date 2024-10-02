@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\barang;
+use App\Models\penjual;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class barangcontroller extends Controller
 {
@@ -21,47 +23,46 @@ class barangcontroller extends Controller
         return view( 'barang.index',['data'=>$barang])->with(["title"=>"cari produk"]);
     }
     public function create(){
-        return view('barang.create')->with(["title"=>"tambah data produk"]);   
+        $penjual = penjual::all(); // Ambil semua data penjual
+        return view('barang.create', compact('penjual'))->with(["title"=>"tambah data produk"]);   
     }
-
     public function store(Request $request){
-      $validasi=$request->validate([
-            "name"=>"required",
-            "id_penjual"=>"nullable",
-            "jenis_barang"=>"required",
-            "stok"=>"required",
-            "harga"=>"required",
-            "foto"=>"image|file|max:2048"
+        $validasi = $request->validate([
+            "name" => "required",
+            "id_penjual" => "nullable",
+            "jenis_barang" => "required",
+            "stok" => "required",
+            "harga" => "required",
+            "foto" => "image|file" // Ubah ukuran maksimum
         ]);
-        if ($request->file('foto')){
-            $validasi['foto']=$request->file('foto')->store('img');
+    
+        if ($request->file('foto')) {
+            // Simpan gambar dan ambil path-nya
+            $validasi['foto'] = $request->file('foto')->store('img');
         }
-
+    
         barang::create($validasi);
         return redirect()->route('barang.index');
     }
-
-    public function edit($id){
-        $barang=barang::find($id);
-        return view('barang.edit')->with('barang',$barang)->with(["title"=>"tambah data produk"]);
-    }
-    public function update(barang $barang,request $request){
-        $validasi=$request->validate([
-            "name"=>"required",
-            "id_penjual"=>"required",
-            "jenis_barang"=>"required",
-            "stok"=>"required",
-            "harga"=>"required",
-            "foto"=>"image|file|max:1024"
+    
+    public function update(barang $barang, Request $request){
+        $validasi = $request->validate([
+            "name" => "required",
+            "id_penjual" => "required",
+            "jenis_barang" => "required",
+            "stok" => "required",
+            "harga" => "required",
+            "foto" => "image|file|max:2048" // Ubah ukuran maksimum
         ]);
-        if ($request->file('foto')){
-            $validasi['foto']=$request->file('foto')->store('img');
+    
+        if ($request->file('foto')) {
+            $validasi['foto'] = $request->file('foto')->store('img');
         }
         
         $barang->update($validasi);
-        return redirect()->route('barang.index')->with(["title"=>"edit data produk"]);
+        return redirect()->route('barang.index')->with(["title" => "edit data produk"]);
     }
-
+    
     public function destroy($id){
         barang::where('id',$id)->Delete();
         return redirect()->route(('barang.index'))->with('success', 'produk berhasil dihapus');;
