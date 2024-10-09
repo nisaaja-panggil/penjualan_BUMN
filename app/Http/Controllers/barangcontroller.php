@@ -44,15 +44,15 @@ class barangcontroller extends Controller
         barang::create($validasi);
         return redirect()->route('barang.index');
     }
-    
+    public function edit(barang $barang): View {
+        return view('barang.edit', compact('barang'))->with(["title"=>"ubah data barang"]);
+    }
     public function update(barang $barang, Request $request){
         $validasi = $request->validate([
             "name" => "required",
-            "id_penjual" => "required",
-            "jenis_barang" => "required",
             "stok" => "required",
             "harga" => "required",
-            "foto" => "image|file|max:2048" // Ubah ukuran maksimum
+            "foto" => "image|file" // Ubah ukuran maksimum
         ]);
     
         if ($request->file('foto')) {
